@@ -15,3 +15,7 @@ Todo App based on [Andrew Van Slaars course on Egghead](https://egghead.io/cours
 `$ yarn start`
 
 3) Have fun!
+
+## License
+
+MIT © [Helton Carlos de Souza](http://helton.me)
