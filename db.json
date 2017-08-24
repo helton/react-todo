@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "name": "Learn JSX",
+      "isCompleted": true
+    },
+    {
+      "id": 3,
+      "name": "Ship it!",
+      "isCompleted": false
+    },
+    {
+      "id": 25349,
+      "name": "New Todo",
+      "isCompleted": false
+    },
+    {
+      "id": 58084,
+      "name": "Another new",
+      "isCompleted": false
+    }
+  ]
+}
