@@ -1,6 +1,6 @@
-# react-todos
+# react-todo [![Build Status](https://travis-ci.org/helton/react-todo.svg?branch=master)](https://travis-ci.org/helton/react-todo)
 
-Todo App based on [Andrew Van Slaars course on Egghead](https://egghead.io/courses/build-your-first-production-quality-react-app)
+> Todo App based on [Andrew Van Slaars course on Egghead](https://egghead.io/courses/build-your-first-production-quality-react-app)
 
 ## Usage
 
