@@ -1,29 +1,3 @@
 {
-  "todos": [
-    {
-      "id": 83170,
-      "name": "sadfdssdf",
-      "isCompleted": false
-    },
-    {
-      "id": 21065,
-      "name": "dd",
-      "isCompleted": false
-    },
-    {
-      "id": 74983,
-      "name": "aa",
-      "isCompleted": true
-    },
-    {
-      "id": 64592,
-      "name": "s",
-      "isCompleted": true
-    },
-    {
-      "id": 68112,
-      "name": "haha",
-      "isCompleted": true
-    }
-  ]
+  "todos": []
 }
