@@ -12,15 +12,16 @@ export class Link extends Component {
   }
 
   handleClick(evt) {
+    evt.preventDefault()
     this.context.linkHandler(this.props.to)
   }
 
   render() {
-    const activeClass = this.context.route === this.props.to ? 'selected' : ''
+    const className = this.context.route === this.props.to ? 'selected' : ''
     return (
       <a
         href="#/"
-        className={activeClass}
+        className={className}
         onClick={this.handleClick.bind(this)}>
         {this.props.children}
       </a>

@@ -24,7 +24,7 @@ class App extends Component {
     const updatedTodos = removeTodo(this.state.todos, id)
     this.setState({ todos: updatedTodos })
     destroyTodo(id)
-      .then(() => this.notify('Todo Removed'))
+      .then(() => this.notify('Todo removed', 'warning'))
   }
 
   handleToggle(id) {
@@ -34,17 +34,20 @@ class App extends Component {
     const todos = pipeline(updated)
     this.setState({ todos })
     saveTodo(updated)
-      .then(() => this.notify('Todo Updated'))
+      .then(() => this.notify('Todo updated'))
   }
 
   handleToggleAll(evt) {
     const completed = evt.target.checked
+    const todosToUpdate = this.state.todos.filter(todo => todo.isCompleted !== completed)
+    const completedTodosCount = todosToUpdate.length
     const todos = this.state.todos.map(todo => {
       const updated = {...todo, isCompleted: completed}
       saveTodo(updated)
       return updated
     })
     this.setState({ todos })
+    this.notify(`${completedTodosCount} todo${completedTodosCount > 1 ? 's' : ''} updated`, 'success')
   }
   
   handleSubmit() {
@@ -59,11 +62,11 @@ class App extends Component {
       currentTodo: ''
     })
     createTodo(newTodo)
-      .then(() => this.notify('Todo Added'))
+      .then(() => this.notify('Todo added'))
   }
 
   handleEmptySubmit() {
-    this.notify('Please supply a todo name', 'error')
+    this.notify('Please supply a todo name', 'error', 'Error')
   }
 
   handleInputChange(evt) {
@@ -82,15 +85,16 @@ class App extends Component {
         const todos = updateTodo(this.state.todos, updated)
         this.setState({ todos, editing: null })
         saveTodo(updated)
-          .then(() => this.notify('Todo Updated'))
+          .then(() => this.notify('Todo updated'))
       } else {
         this.setState({ editing: null })
       }
     }
   }
 
-  notify(message, level='info') {
+  notify(message, level='info', title='') {
     this.refs.notificationSystem.addNotification({
+      title,
       message,
       level,
       position: 'tr'
@@ -98,11 +102,12 @@ class App extends Component {
   }
 
   clearCompletedTodos() {
-    this.state.todos
-      .filter(todo => todo.isCompleted)
-      .forEach(todo => destroyTodo(todo.id))
+    const completedTodos = this.state.todos.filter(todo => todo.isCompleted)
+    const todosUpdatedCount = completedTodos.length
+    completedTodos.forEach(todo => destroyTodo(todo.id))
     const todos = this.state.todos.filter(todo => !todo.isCompleted)
     this.setState({ todos })
+    this.notify(`${todosUpdatedCount} todo${todosUpdatedCount > 1 ? 's' : ''} removed`, 'success')
   }
 
   componentDidMount() {

@@ -29,9 +29,8 @@ export class Router extends Component {
   }
 
   componentDidMount() {
-    window.onpopstate = () => {
+    window.onpopstate = () =>
       this.setState({ route: getCurrentPath() })
-    }    
   }
 
   render() {
