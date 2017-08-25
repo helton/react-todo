@@ -3,10 +3,10 @@ import { Link } from '../router'
 
 export const Footer = () => {
   return (
-    <div className="Footer">
-      <Link to="/">All</Link>
-      <Link to="/active">Active</Link>
-      <Link to="/completed">Completed</Link>
-    </div>
+    <ul className="filters">
+      <li><Link to="/">All</Link></li>
+      <li><Link to="/active">Active</Link></li>
+      <li><Link to="/completed">Completed</Link></li>
+    </ul>
   )
 }

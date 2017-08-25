@@ -3,11 +3,17 @@ import PropTypes from 'prop-types'
 
 export const TodoForm = props => {
   return (
-    <form onSubmit={props.handleSubmit}>
-      <input type="text" 
-        onChange={props.handleInputChange}
-        value={props.currentTodo}/>
-    </form>
+    <input
+      className="new-todo"
+      type="text" 
+      onChange={props.handleInputChange}
+      onKeyPress={evt => {
+        if (evt.key === 'Enter'){
+          props.handleSubmit()
+        }
+      }}
+      value={props.currentTodo}
+      placeholder="What needs to be done?"/>
   )
 }
 

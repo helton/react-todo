@@ -16,13 +16,14 @@ export class Link extends Component {
   }
 
   render() {
-    const activeClass = this.context.route === this.props.to ? 'active' : ''
+    const activeClass = this.context.route === this.props.to ? 'selected' : ''
     return (
-      <button
+      <a
+        href="#/"
         className={activeClass}
         onClick={this.handleClick.bind(this)}>
         {this.props.children}
-      </button>
+      </a>
     )
   }
 }
