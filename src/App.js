@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import NotificationSystem from 'react-notification-system'
 import ReactAutoBinder from 'react-auto-binder'
 import './App.css'
 import { TodoForm, TodoList, Footer } from './components/todos/'
@@ -23,7 +24,7 @@ class App extends Component {
     const updatedTodos = removeTodo(this.state.todos, id)
     this.setState({ todos: updatedTodos })
     destroyTodo(id)
-      .then(() => this.showTemporaryMessage('Todo Removed'))
+      .then(() => this.notify('Todo Removed'))
   }
 
   handleToggle(id) {
@@ -33,7 +34,7 @@ class App extends Component {
     const todos = pipeline(updated)
     this.setState({ todos })
     saveTodo(updated)
-      .then(() => this.showTemporaryMessage('Todo Updated'))
+      .then(() => this.notify('Todo Updated'))
   }
 
   handleToggleAll(evt) {
@@ -55,17 +56,14 @@ class App extends Component {
     const todos = addTodo(this.state.todos, newTodo)
     this.setState({ 
       todos,
-      currentTodo: '',
-      errorMessage: ''
+      currentTodo: ''
     })
     createTodo(newTodo)
-      .then(() => this.showTemporaryMessage('Todo Added'))
+      .then(() => this.notify('Todo Added'))
   }
 
   handleEmptySubmit() {
-    this.setState({
-      errorMessage: 'Please supply a todo name'
-    })
+    this.notify('Please supply a todo name', 'error')
   }
 
   handleInputChange(evt) {
@@ -84,19 +82,19 @@ class App extends Component {
         const todos = updateTodo(this.state.todos, updated)
         this.setState({ todos, editing: null })
         saveTodo(updated)
-          .then(() => this.showTemporaryMessage('Todo Updated'))
+          .then(() => this.notify('Todo Updated'))
       } else {
         this.setState({ editing: null })
       }
     }
   }
 
-  showTemporaryMessage(message) {
-    //implement notification system
-    this.setState({ message })
-    setTimeout(() => {
-      this.setState({ message: '' })
-    }, 2500)
+  notify(message, level='info') {
+    this.refs.notificationSystem.addNotification({
+      message,
+      level,
+      position: 'tr'
+    });
   }
 
   clearCompletedTodos() {
@@ -120,10 +118,7 @@ class App extends Component {
       <section className="todoapp">
         <header className="header">
           <h1>todos</h1>
-          {/* Change to notification system!
-          {this.state.errorMessage && <span className="error">{this.state.errorMessage}</span>}
-          {this.state.message && <span className="success">{this.state.message}</span>}
-          */}
+          <NotificationSystem ref="notificationSystem"/>
           <TodoForm
             handleInputChange={this.handleInputChange}
             currentTodo={this.state.currentTodo}
